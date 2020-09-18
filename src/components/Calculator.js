@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function Calculator() {
@@ -8,6 +8,7 @@ function Calculator() {
     const [interest, setInterest] = useState('');
     const [years, setYears] = useState('');
     const dispatch = useDispatch();
+    const total = useSelector((state) => state)
 
     const updatePrincipal = (e) => {
         setPrincipal(e.target.value);
@@ -21,15 +22,16 @@ function Calculator() {
         setYears(e.target.value );
     }
 
-    const calculateInterest = (principal, interest, years) => {
-        
+    const calculateTotal = (principal, interest, years) => {
+        return principal * (1 + (interest * years)) 
     }
     
     const handleSubmit = (e) => {
-        let interest = calculateInterest(principal, interest, years)
+        e.preventDefault();
+        let total = calculateTotal(principal, interest, years)
 		dispatch({
 			type: 'SET_INTEREST',
-			payload: interest,
+			payload: total,
 		});
 	}
 	
@@ -41,7 +43,7 @@ function Calculator() {
                     <input
                         type="text"
                         name="principal"
-                        value={form.principal}
+                        value={principal}
                         onChange={updatePrincipal}
                         className="input"
                     />
@@ -50,7 +52,7 @@ function Calculator() {
                     <input
                         type="text"
                         name="annualInterestRate"
-                        value={form.annualInterestRate}
+                        value={interest}
                         onChange={updateInterest}
                         className="input"
                     />
@@ -59,13 +61,14 @@ function Calculator() {
                     <input
                         type="text"
                         name="years"
-                        value={form.years}
+                        value={years}
                         onChange={updateYears}
                         className="input"
                     />
                 </label>
 				<button type="submit" id="submit-button" value="Submit">Calculate Interest</button>
 			</form>
+            <h2>Total principal with accrued interest: ${total}</h2>
 		</div>
   	);
 }
