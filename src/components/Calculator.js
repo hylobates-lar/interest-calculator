@@ -4,19 +4,32 @@ import { useDispatch } from 'react-redux';
 
 function Calculator() {
 
-    const [principal, setPrincipal] = useState({ principal: '', annualInterestRate: '', years: '' });
-    const [interest, setInterest] = useState({ principal: '', annualInterestRate: '', years: '' });
-    const [principal, setPrincipal] = useState({ principal: '', annualInterestRate: '', years: '' });
+    const [principal, setPrincipal] = useState('');
+    const [interest, setInterest] = useState('');
+    const [years, setYears] = useState('');
     const dispatch = useDispatch();
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.principal]: e.target.value });
+    const updatePrincipal = (e) => {
+        setPrincipal(e.target.value);
+    }
+
+    const updateInterest = (e) => {
+        setInterest(e.target.value);
+    }
+
+    const updateYears = (e) => {
+        setYears(e.target.value );
+    }
+
+    const calculateInterest = (principal, interest, years) => {
+        
     }
     
     const handleSubmit = (e) => {
+        let interest = calculateInterest(principal, interest, years)
 		dispatch({
-			// type: 'SET_USER',
-			// payload: user
+			type: 'SET_INTEREST',
+			payload: interest,
 		});
 	}
 	
@@ -29,7 +42,7 @@ function Calculator() {
                         type="text"
                         name="principal"
                         value={form.principal}
-                        onChange={}
+                        onChange={updatePrincipal}
                         className="input"
                     />
                 </label>
@@ -38,7 +51,7 @@ function Calculator() {
                         type="text"
                         name="annualInterestRate"
                         value={form.annualInterestRate}
-                        onChange={handleChange}
+                        onChange={updateInterest}
                         className="input"
                     />
                 </label>
@@ -47,7 +60,7 @@ function Calculator() {
                         type="text"
                         name="years"
                         value={form.years}
-                        onChange={handleChange}
+                        onChange={updateYears}
                         className="input"
                     />
                 </label>
