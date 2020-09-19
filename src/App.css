@@ -1,8 +1,28 @@
 .App {
   text-align: center;
+  margin-top: 100px;
 }
-/* 
+
 .form {
   display: flex;
-} */
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  font-size: 1.3rem;
+}
+
+label, button {
+  margin: 12px 0;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button, input {
+  padding: 6px;
+  font-size: 1.2rem;
+}
 

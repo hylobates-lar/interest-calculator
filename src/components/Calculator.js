@@ -22,8 +22,13 @@ function Calculator() {
         setYears(e.target.value );
     }
 
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
     const calculateTotal = (principal, interest, years) => {
-        return principal * (1 + (interest * years)) 
+        return principal * (1 + (interest * years))
     }
     
     const handleSubmit = (e) => {
@@ -41,7 +46,7 @@ function Calculator() {
 			<form onSubmit={handleSubmit} className="form">
                 <label>Principal 
                     <input
-                        type="text"
+                        type="number"
                         name="principal"
                         value={principal}
                         onChange={updatePrincipal}
@@ -50,7 +55,7 @@ function Calculator() {
                 </label>
                 <label>Annual Interest Rate 
                     <input
-                        type="text"
+                        type="number"
                         name="annualInterestRate"
                         value={interest}
                         onChange={updateInterest}
@@ -59,7 +64,7 @@ function Calculator() {
                 </label>
                 <label>Number of Years 
                     <input
-                        type="text"
+                        type="number"
                         name="years"
                         value={years}
                         onChange={updateYears}
@@ -68,7 +73,7 @@ function Calculator() {
                 </label>
 				<button type="submit" id="submit-button" value="Submit">Calculate Interest</button>
 			</form>
-            <h2>Total principal with accrued interest: ${total}</h2>
+            <h2>Total principal with accrued interest: {formatter.format(total)}</h2>
 		</div>
   	);
 }
